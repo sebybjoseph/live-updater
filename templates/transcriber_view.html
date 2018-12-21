@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Live Updater</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="100">
+    <!-- Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/transcriber_view.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $('#data_table').DataTable({
+        "order": [[ 3, 'desc' ]]
+      });
+      $('#ack_table').DataTable({
+        "order": [[ 1, 'desc' ]]
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url_for('index') }}">
+            <i class="fas fa-home"></i>
+          </a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="#" title="Please contact @sebyj, @sssndh in case of any issues.">
+              Help <i class="far fa-question-circle"></i>
+            </a>
+          </li>
+          <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+        <a href="{{url_for('feedback')}}"><button type="button" name="feedback" class="btn btn-danger pull-right feedback-btn">Feedback</button></a>
+        <p class="navbar-text navbar-right" title="Logged in as a verifier">Signed in as {{current_user.userid}}</p>
+      </div>
+    </nav>
+    <div class="container tableView">
+      {% if error %}
+        <div class="alert alert-danger alert-dismissable" role="alert">
+          <button type="button" name="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3>{{ error }}</h3>
+        </div>
+      {% endif %}
+      <div class="head">
+        <h1>Recent Errors</h1>
+        <a href="{{ url_for('acknowledgements') }}"><button type="button" name="button" class="btn btn-primary pull-right">My Acknowledgements</button></a>
+      </div>
+
+      <table class="table table-hover table-striped" id="data_table">
+        <thead>
+          <tr>
+            <th>Incorrect Transcription</th>
+            <th>Correct Transcription</th>
+            <th>Comments</th>
+            <th>Date added</th>
+            <th>Acknowledge</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in rows %}
+            <tr>
+              {% autoescape false %}
+                <td>{{row[0] | replace("," , "<br/>") }}</td>
+              {% endautoescape %}
+              <td>{{row[1]}}</td>
+              <td>{{row[3]}}</td>
+              <td>{{row[4]}}</td>
+              {% if row[1] in acks %}
+                <td>
+                  <button class="btn btn-success"> <i class="fas fa-check"></i> Acknowledged </button>
+                </td>
+              {% else %}
+                <td>
+                  <a class="acknowledge" href="{{ url_for('acknowledge', incorrect=row[0], correct=row[1]) }}">
+                    <button class="btn btn-warning">
+                      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                      &nbsp;&nbsp;
+                      Acknowledge
+                    </button>
+                  </a>
+                </td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div id="diff" style="display:none">{{ diff }}</div>
+    </div>
+    <div class="topContrib container">
+      <h1>Top Acknowledgements</h1>
+      <table class="table table-hover table-striped" id="ack_table">
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in acknowledgements %}
+            <tr>
+              <td>{{row[0]}}</td>
+              <td>{{row[1]}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="footer text-center">
+      <span class="disclaimer">
+        <img class="logo" src="../static/img/logo.png" alt="">
+        ADS Internal
+      </span>
+      <span class="owners pull-right">Project Owners :
+        <a target="_blank" href="https://phonetool.amazon.com/users/sssndh">@sssndh</a>  ,
+        <a target="_blank" href="https://phonetool.amazon.com/users/sebyj">@sebyj</a>
+      </span>
+    </div>
+
+<style media="screen">
+.center_div{
+  margin: 0 auto;
+  width:30% /* value of your choice which suits your alignment */
+}
+</style>
+    <script type="text/javascript">
+    var original = "Live Updater";
+    var diff = parseInt(document.getElementById("diff").innerHTML);
+    if (diff > 0){
+      document.title = "(" + diff + ") "+ original;
+    }
+    window.onfocus = function () { document.title = original; }
+
+    </script>
+    <script type="text/javascript">
+      acks = document.querySelectorAll(".acknowledge");
+      acks.forEach(function (ack) {
+        ack.addEventListener("click", function(){
+          // ack.classList.toggle("acknowledged");
+        })
+      });
+    </script>
+  </body>
+</html>

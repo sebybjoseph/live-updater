@@ -1,0 +1,93 @@
+.tableView{
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 30px;
+  background-color: rgba(240,240,240,0.9);
+  margin-top: 50px;
+  color: black;
+}
+
+a{
+  text-decoration: none;
+}
+
+.head h1{
+  display: inline;
+}
+
+.head{
+  margin-bottom: 20px;
+}
+
+body{
+  background: url("../img/liana-mikah-343240-unsplash.jpg") no-repeat fixed center;
+  background-size: cover;
+}
+
+.topContrib{
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 20px;
+  padding-bottom: 90px;
+  margin-bottom: 30px;
+  background-color: rgba(240,240,240,0.9);
+  margin-top: 50px;
+  color: black;
+  max-height: 370px;
+  overflow-y: scroll
+}
+
+#ack_table tr:nth-child(1) td{
+   background-color: rgba(0,255,0,0.6)
+}
+
+#ack_table tr:nth-child(2) td{
+   background-color: rgba(0,255,0,0.4)
+}
+
+#ack_table tr:nth-child(3) td{
+   background-color: rgba(0,255,0,0.2)
+}
+
+.navbar{
+  border-radius: 0;
+}
+
+#ack_table{
+  margin: 10px;
+}
+
+.feedback-btn{
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.footer {
+  /* position: absolute; */
+  width: 100%;
+  bottom: 0;
+  background-color: rgba(50,50,50,0.9);
+  border: 2px solid grey;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+}
+
+.logo{
+  height: 30px;
+}
+
+.disclaimer{
+  font-family: cooper-black-std, serif;
+  font-weight:700;
+  font-size: 15px;
+}
+
+.owners{
+  font-family: 'Lato', sans-serif;
+}
+
+.owners a{
+  color: cyan;
+}

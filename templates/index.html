@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Live Updater</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style media="screen">
+    .content{
+      margin: 10%;
+      width:80% /* value of your choice which suits your alignment */
+    }
+    </style>
+    <!-- Bootstrap -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400i" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/index.css">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url_for('index') }}">
+            <i class="fas fa-home"></i>
+          </a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="#" title="Please contact @sebyj, @sssndh in case of any issues.">
+              Help <i class="far fa-question-circle"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="content text-center">
+        <h1>Live Error Updater</h1>
+        <cite>
+          <h3>- UK Marketplace</h3>
+        </cite>
+        <br>
+        <p>One stop destination to get updated on common errors occurring every day.</p>
+        <p>You can upload, view and edit recently made errors and updates in transcription. </p>
+        <p>Kindly login to start using the tool </p>
+        <a href="{{ url_for('login') }}"><button type="submit" class="btn btn-warning btn-lg" name="verifier_button">Login</button></a>
+      </div>
+    </div>
+    <div class="footer text-center">
+      <span class="disclaimer">
+        <img class="logo" src="../static/img/logo.png" alt="">
+        ADS Internal
+      </span>
+      <span class="owners pull-right">Project Owners :
+        <a target="_blank" href="https://phonetool.amazon.com/users/sssndh">@sssndh</a>  ,
+        <a target="_blank" href="https://phonetool.amazon.com/users/sebyj">@sebyj</a>
+      </span>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>

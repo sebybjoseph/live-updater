@@ -1,0 +1,51 @@
+body{
+  background: url("../img/rawpixel-623444-unsplash.jpg") no-repeat fixed center;
+  background-size: cover;
+}
+
+.center_div{
+  /* position:absolute; */
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 30px;
+  background-color: rgba(50,50,50,0.9);
+  margin-top: 50px;
+  color: white;
+}
+
+.btn{
+  margin: 5px 5px;
+}
+
+.footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  background-color: rgba(50,50,50,0.9);
+  border: 2px solid grey;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+}
+
+.logo{
+  height: 30px;
+}
+
+.disclaimer{
+  font-family: cooper-black-std, serif;
+  font-weight:700;
+  font-size: 15px;
+}
+
+.owners{
+  font-family: 'Lato', sans-serif;
+}
+
+.owners a{
+  color: cyan;
+}
+
+.feedback-form label{
+  margin-right: 10px;
+}

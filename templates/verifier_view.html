@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Live Updater</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/verifier_view.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $('#data_table').DataTable({
+        "order": [[ 4, 'desc' ]]
+      });
+      $('#contrib_table').DataTable({
+        "order": [[ 1, 'desc']]
+      });
+    } );
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url_for('index') }}">
+            <i class="fas fa-home"></i>
+          </a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="#" title="Please contact @sebyj, @sssndh in case of any issues.">
+              Help <i class="far fa-question-circle"></i>
+            </a>
+          </li>
+          <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+        <a href="{{url_for('feedback')}}"><button type="button" name="feedback" class="btn btn-danger pull-right feedback-btn">Feedback</button></a>
+        <p class="navbar-text navbar-right" title="Logged in as a verifier">Signed in as {{current_user.userid}}</p>
+      </div>
+    </nav>
+    <div class="container">
+      <!-- {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-success alert-dismissable" role="alert">
+            <button type="button" name="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h3>{{ message }}</h3>
+          </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %} -->
+      <div class="row">
+        <div class="addData col-md-4">
+          <h1>Add an error</h1>
+            <form method="post" action="/verifier/add_data">
+            <div class="form-group">
+              <label for="incorrectTranscription">Incorrect Transcription</label>
+              <input type="text" class="form-control" name='incorrectTranscription' id="incorrectTranscription" placeholder="jay-z" required>
+            </div>
+            <div class="form-group">
+              <label for="correctTranscription">Correct Transcription</label>
+              <input type="text" class="form-control" name='correctTranscription' id="correctTranscription" placeholder="jay z." required>
+            </div>
+            <div class="form-group">
+              <label for="comments">Comments</label>
+              <input type="text" class="form-control" name='comments' id="comments" placeholder="brief about the context of the error" required>
+            </div>
+            <button type="submit" class="btn btn-warning">Add</button>
+          </form>
+        </div>
+
+        <div class="topContrib col-md-7">
+          <h1>Top Contributors</h1>
+          <a href="{{ url_for('contributions') }}"><button type="button" name="button" class="btn btn-primary pull-right">My contributions</button></a>
+          <table class="table table-hover table-striped" id="contrib_table">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in contributions %}
+                <tr>
+                  <td>{{row[0]}}</td>
+                  <td>{{row[1]}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <div class="tableView col-md-12">
+        <!-- <table border="0" cellspacing="5" cellpadding="5" id="example">
+          <tbody>
+            <tr>
+              <td>Minimum Date:</td>
+              <td><input name="min" id="min" type="text"></td>
+            </tr>
+            <tr>
+              <td>Maximum Date:</td>
+              <td><input name="max" id="max" type="text"></td>
+            </tr>
+          </tbody>
+        </table> -->
+        <h1>Recent Errors</h1>
+        <table class="table table-hover table-striped" id="data_table">
+          <thead>
+            <tr>
+              <th>Incorrect Transcription</th>
+              <th>Correct Transcription</th>
+              <th>Added by</th>
+              <th>Comments</th>
+              <th>Date added</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in rows %}
+              <tr>
+                {% autoescape false %}
+                  <td>{{row[0] | replace("," , "<br/>") }}</td>
+                {% endautoescape %}
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+                <td>{{row[3]}}</td>
+                <td>{{row[4]}}</td>
+                <td>
+                  <a href="{{ url_for('verifier_add_data_to_db', incorrect=row[0], correct=row[1], userid=current_user.userid, comments=row[3], direct='true') }}">
+                    <button type="button" title="Repeat/Add another instance of this error" class="btn btn-success" name="button">
+                      <span>+<span>
+                    </button>
+                  </a>
+                  <a href="{{ url_for('verifier_delete_data_from_db', correct=row[1]) }}">
+                    <button type="button" title="Delete this entry" class="btn btn-danger" name="button">
+                      <span><i class="fa fa-trash"></i>
+                    </button>
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="footer text-center">
+      <span class="disclaimer">
+        <img class="logo" src="../static/img/logo.png" alt="">
+        ADS Internal
+      </span>
+      <span class="owners pull-right">Project Owners :
+        <a target="_blank" href="https://phonetool.amazon.com/users/sssndh">@sssndh</a>  ,
+        <a target="_blank" href="https://phonetool.amazon.com/users/sebyj">@sebyj</a>
+      </span>
+    </div>
+
+<style media="screen">
+.center_div{
+  margin: 0 auto;
+  width:30% /* value of your choice which suits your alignment */
+}
+</style>
+  </body>
+</html>

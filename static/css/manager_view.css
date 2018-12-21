@@ -1,0 +1,116 @@
+.addData{
+  width: 31%;
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 30px;
+  background-color: rgba(240,240,240,0.9);
+  margin-top: 50px;
+  color: black;
+}
+
+.tableView{
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 30px;
+  background-color: rgba(240,240,240,0.9);
+  margin-top: 50px;
+  color: black;
+}
+
+.addVerifier, .addManager{
+  width: 32%;
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 20px;
+  padding-bottom: 90px;
+  margin-bottom: 30px;
+  margin-left: 1%;
+  background-color: rgba(240,240,240,0.9);
+  margin-top: 50px;
+  color: black;
+}
+
+.navbar{
+  border-radius: 0;
+}
+
+body{
+  background: url("../img/liana-mikah-343240-unsplash.jpg") no-repeat fixed center;
+  background-size: cover;
+}
+
+.feedback-btn{
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.footer {
+  /* position: absolute; */
+  width: 100%;
+  bottom: 0;
+  background-color: rgba(50,50,50,0.9);
+  border: 2px solid grey;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+}
+
+.logo{
+  height: 30px;
+}
+
+.disclaimer{
+  font-family: cooper-black-std, serif;
+  font-weight:700;
+  font-size: 15px;
+}
+
+.owners{
+  font-family: 'Lato', sans-serif;
+}
+
+.owners a{
+  color: cyan;
+}
+
+.dataTables_length, #contrib_table_filter, #ack_table_filter{
+  padding-top: 20px;
+}
+
+#ack_table tr:nth-child(1) td, #contrib_table tr:nth-child(1) td{
+   background-color: rgba(0,255,0,0.6)
+}
+
+#ack_table tr:nth-child(2) td, #contrib_table tr:nth-child(2) td{
+   background-color: rgba(0,255,0,0.4)
+}
+
+#ack_table tr:nth-child(3) td, #contrib_table tr:nth-child(3) td{
+   background-color: rgba(0,255,0,0.2)
+}
+
+.navbar{
+  border-radius: 0;
+}
+
+#ack_table, #contrib_table{
+  margin: 10px;
+}
+
+.topContrib, .topAck{
+  display: inline-block;
+  width: 45%;
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 20px;
+  padding-bottom: 90px;
+  margin-bottom: 30px;
+  margin-left: 60px;
+  background-color: rgba(240,240,240,0.9);
+  margin-top: 10px;
+  color: black;
+  max-height: 370px;
+  overflow-y: scroll
+}

@@ -1,0 +1,30 @@
+.tableView{
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 30px;
+  background-color: rgba(240,240,240,0.9);
+  margin-top: 50px;
+  color: black;
+}
+
+body{
+  background: url("../img/liana-mikah-343240-unsplash.jpg") no-repeat fixed center;
+  background-size: cover;
+}
+
+.dataTables_length, #data_table_filter{
+  padding-top: 20px;
+}
+
+.red_bg{
+  background-color: rgba(255,0,0,0.4);
+}
+
+.green_bg{
+  background-color: rgba(0,255,0,0.4);
+}
+
+.yellow_bg{
+  background-color: rgba(255,255,0,0.4);
+}
